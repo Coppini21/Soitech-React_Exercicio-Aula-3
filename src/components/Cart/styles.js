@@ -181,11 +181,11 @@ export const BtnClear = styled.button`
 
 `;
 
-export const BtnClose = styled.button`
+export const BtnFinalizarPedido = styled.button`
     width: 160px;
     height: 40px;
-    background: #BBBB31;
-    border: 1px solid #BBBB31;
+    background: RGB(117, 203, 120);
+    border: 1px solid RGB(117, 203, 120);
     border-radius: 6px;
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -210,7 +210,7 @@ export const MensagemCart = styled.h3`
     justify-content: center;
 `;
 
-export const DivBtnClearClose = styled.div`
+export const DivBtnClearFinalizarPedido = styled.div`
     height: 100vh;
     bottom: 0;
     display: flex;

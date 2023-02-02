@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 
+import { BrowserRouter } from "react-router-dom";
 
 import { GlobalStyle } from "./styles/globalStyles";
 import { Normalize } from "styled-normalize";
 
+import EstadoGlobal from "./context/EstadoGlobal";
 
-import Home from "./pages/Home";
-import HomeProducts from "./pages/HomeProducts"
-import MyContext from "./context/MyContext";
+import  Rotas  from "./routes";
 
 function App() {
-  const [showPage, setShowPage] = useState("Login");
   const [cart, setCart] = useState([])
-  const autorizacao = localStorage.getItem("autorizacao")
+
 
   return (
-    <>
+    <EstadoGlobal>
+      <BrowserRouter>
       <GlobalStyle />
-      <MyContext.Provider value={{ showPage, setShowPage, cart, setCart }}>
-        { autorizacao === "liberado" ? <HomeProducts /> : <Home /> }
-      </MyContext.Provider>
+        <Rotas />
       <Normalize />
-    </>
+    </BrowserRouter>
+    </EstadoGlobal>
+    
   );
 }
 

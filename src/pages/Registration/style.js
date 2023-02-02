@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const ContainerRegistration = styled.div`
+
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   justify-content: center;
   align-items: center;
   background: #0F1F37;
-  background-size: auto;
   
-  @media (max-width: 1445px) {
+  @media (max-width: 1400px) {
     flex-wrap: wrap;
     height: 100%;
-    min-width: 1164px;
+    min-width: 1117px;
     gap: 50px;
     padding-bottom: 20px;
   }
@@ -42,7 +42,7 @@ export const Container = styled.div`
     left: 60px;
   }
 
-  .divLogin{
+  .divSignUp{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,4 +51,3 @@ export const Container = styled.div`
     height: 100%;
   }
 `;
-

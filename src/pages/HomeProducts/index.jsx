@@ -32,7 +32,6 @@ export default function HomeProducts() {
     event.stopPropagation();
   }
 
-  console.log(cart);
   function sairPage() {
     localStorage.removeItem("autorizacao");
     window.location.reload();
@@ -49,6 +48,9 @@ export default function HomeProducts() {
           produto.quantidade = produto.quantidade + 1;
         }
       });
+      
+      setCart([...cart])
+      
     } else {
       const quantidade = {
         ...item,
@@ -66,7 +68,8 @@ export default function HomeProducts() {
       if (openCart.style.display == "flex") {
         openCart.style.display = "none";
       }
-    }
+    } 
+
   });
 
   return (

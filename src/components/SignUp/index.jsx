@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
-
-import MyContext from "../../context/MyContext";
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import { Container } from "./style";
 
@@ -8,34 +7,12 @@ export default function SignUp(props) {
   const [nome, setNome] = useState("");
   const [emailCadastro, setEmailCadastro] = useState("");
   const [senhaCadastro, setSenhaCadastro] = useState("");
-  const { showPage, setShowPage } = useContext(MyContext)
-
-  function enviarCadastro(event) {
-    
-    console.log("entrou")
-
-    if (nome && emailCadastro && senhaCadastro) {
-        localStorage.clear()
-        localStorage.setItem("nome", nome);
-        localStorage.setItem("email", emailCadastro);
-        localStorage.setItem("senha", senhaCadastro);
-        localStorage.setItem("autorizacao", "liberado");
-        window.location.reload();
-
-    } else {
-      alert("Error: Preencha os campos corretamente!");
-    }
-
-    event.preventDefault()
-  }
-
-  function mudandoParaLogIn(){
-    setShowPage("Login")
-  }
+ 
+  const navigate = useNavigate()
 
   return (
     <Container>
-      <form onSubmit={enviarCadastro}>
+      <form>
         <br />
         <label>Cadastre-se</label>
         <br />
@@ -87,7 +64,7 @@ export default function SignUp(props) {
         </button>
         <div id="linha" />
         <p>Already have an account?</p>
-        <a onClick={mudandoParaLogIn}>Log in</a>
+        <a onClick={() => navigate("/")} >Log in</a>
       </form>
     </Container>
   );

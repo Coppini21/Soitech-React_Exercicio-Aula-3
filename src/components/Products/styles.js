@@ -76,6 +76,11 @@ export const Container = styled.div`
 
 `;
 
+export const DivBtnAddToCartDetails = styled.div`
+    display: flex;
+    gap: 8px;
+    
+`;
 
 export const BotaoAddToCart = styled.button`
     width: 150px;
@@ -88,6 +93,31 @@ export const BotaoAddToCart = styled.button`
     font-size: 20px;
     line-height: 30px;
     border: none;
+
+    &&:hover{
+        transform: scale(1.1);
+    }
+`;
+
+export const BotaoDetails = styled.button`
+    width: 80px;
+    height: 35px;
+    background: #BBBB31;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    border: none;
+    
+    a{
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        color: #FFFFFF; 
+    }
 
     &&:hover{
         transform: scale(1.1);

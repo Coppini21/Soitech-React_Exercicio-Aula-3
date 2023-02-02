@@ -7,25 +7,45 @@ import {
   TotalCart,
   Item,
   BtnClear,
-  BtnClose,
+  BtnFinalizarPedido,
   BtnRemove,
   BtnSave,
   MensagemCart,
-  DivBtnClearClose,
+  DivBtnClearFinalizarPedido,
 } from "./styles";
 
-export default function Cart(props) {
+export default function Cart() {
   const { cart, setCart } = useContext(MyContext);
 
-  function closeCart() {
+  function finalizarPedido() {
     let cartModal = document.getElementById("totalCart");
     cartModal.style.display = "none";
+
+    if (cart.length > 0) {
+      alert("Pedido finalizado com sucesso!");
+    } else {
+      alert("Error: não há produtos no carrinho.");
+    }
   }
 
-  function clear(){
-    setCart( valorAtual => valorAtual.splice(0, cart.length))
+  function clear() {
+    setCart((valorAtual) => valorAtual.splice(0, cart.length));
   }
- 
+
+  function removerProduto(produto) {
+    cart.forEach((element, index) => {
+      if (element.descricao === produto.descricao && element.quantidade >= 2) {
+        element.quantidade = element.quantidade - 1;
+      } else if (
+        element.descricao === produto.descricao &&
+        element.quantidade <= 1
+      ) {
+        cart.splice(index, 1);
+      }
+    });
+
+    setCart([...cart]);
+  }
 
   return (
     <>
@@ -46,20 +66,28 @@ export default function Cart(props) {
                         lady
                       </h3>
                       <p>
-                        Size: {produto.tamanho}, Color: {produto.cor}, Material:{produto.material}
+                        Size: {produto.tamanho}, Color: {produto.cor}, Material:
+                        {produto.material}
                       </p>
                       <p>Seller: {produto.vendedor}</p>
                       <div className="divTotalBtn">
-                        <BtnRemove type="button">Remover</BtnRemove>
+                        <BtnRemove
+                          type="button"
+                          onClick={() => removerProduto(produto)}
+                        >
+                          Remover
+                        </BtnRemove>
                         <BtnSave type="button">Save for later</BtnSave>
                       </div>
                     </div>
                   </div>
                   <div className="divTotalQuantidade">
-                    <span>${produto.valor}</span>
+                    <span>${produto.valor * produto.quantidade}</span>
                     <form>
                       <select name="quantidade" id="quantidade">
-                        <option value={produto.quantidade}>Qty: {produto.quantidade}</option>
+                        <option value={produto.quantidade}>
+                          Qty: {produto.quantidade}
+                        </option>
                       </select>
                     </form>
                   </div>
@@ -72,12 +100,14 @@ export default function Cart(props) {
           <MensagemCart>Não há produtos no carrinho!</MensagemCart>
         )}
 
-        <DivBtnClearClose>
-          <BtnClose type="button" onClick={() => closeCart()}>
-            Fechar Cart
-          </BtnClose>
-          <BtnClear type="button" onClick={clear}>Clear</BtnClear>
-        </DivBtnClearClose>
+        <DivBtnClearFinalizarPedido>
+          <BtnFinalizarPedido type="button" onClick={finalizarPedido}>
+            Finalizar Pedido
+          </BtnFinalizarPedido>
+          <BtnClear type="button" onClick={clear}>
+            Clear
+          </BtnClear>
+        </DivBtnClearFinalizarPedido>
       </TotalCart>
     </>
   );

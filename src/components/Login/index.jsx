@@ -1,35 +1,17 @@
 import React, { useState, useContext } from "react";
-import MyContext from "../../context/MyContext";
+import { useNavigate } from 'react-router-dom';
 
 import { Container } from "./style";
 
 export default function Login(props){
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
-    const { showPage, setShowPage } = useContext(MyContext)
 
-    function enviandoInfoLogin(e){   
-        if(email === localStorage.getItem("email")){
-            if(senha === localStorage.getItem("senha")){
-                localStorage.setItem("autorizacao", "liberado")
-                window.location.reload()
-            }else{
-                alert("Error: senha incorreta!")
-            }
-        }else{
-            alert("Error: email incorreto!")
-        }
-
-        e.preventDefault()
-    }
-
-    function mudandoParaSignUp(){
-        setShowPage("Sign Up")
-    }
+    const navigate = useNavigate()
 
     return(
         <Container>
-            <form onSubmit={enviandoInfoLogin}>
+            <form >
                 <br/><br/><br/><br/>
                 <label>Log in</label><br/><br/>
                 <label htmlFor="emailLogin">Email</label><br/>
@@ -41,7 +23,7 @@ export default function Login(props){
                 <button type="submit" id="btnLogin">Log in</button>
                 <div id="linha" />
                 <p>Don't have an account?</p>
-                <a onClick={mudandoParaSignUp}>Sign up</a>
+                <a onClick={() => navigate('/registration')} >Sign up</a>
             </form>
         </Container>
     );

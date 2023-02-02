@@ -18,6 +18,8 @@ export const GlobalStyle = createGlobalStyle`
         min-height: 100vh;
         width: 100%;
         -webkit-font-smoothing: antialiased;
+
+        
     }
 
     button{
