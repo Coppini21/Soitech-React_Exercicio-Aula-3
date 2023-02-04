@@ -8,7 +8,7 @@ import { Container } from "./style";
 
 export default function Home() {
   return (
-    <Container>
+    <Container id="totalCart">
       <div className="divTitulo-img">
         <img className="imgLogo" src={logo} alt="logo" />
         <span>

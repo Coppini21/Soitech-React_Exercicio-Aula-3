@@ -30,7 +30,7 @@ export const Item = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 200px;
+        margin-left: 300px;
         margin-top: -50px;
         cursor: pointer;
         transition: all 0.3s;

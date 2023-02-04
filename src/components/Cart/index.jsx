@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import MyContext from "../../context/MyContext";
 
 import {
@@ -29,7 +27,7 @@ export default function Cart() {
   }
 
   function clear() {
-    setCart((valorAtual) => valorAtual.splice(0, cart.length));
+    setCart([]);
   }
 
   function removerProduto(produto) {
