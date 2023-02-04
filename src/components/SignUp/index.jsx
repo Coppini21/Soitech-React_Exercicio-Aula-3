@@ -10,9 +10,19 @@ export default function SignUp(props) {
  
   const navigate = useNavigate()
 
+  const enviaCadastro = (event) => {
+    event.preventDefault()
+    localStorage.clear()
+    localStorage.setItem("name", nome)
+    localStorage.setItem("email", emailCadastro)
+    localStorage.setItem("senha", senhaCadastro)
+    localStorage.setItem("telaAutorizada", "true")
+    navigate("/products")
+  }
+
   return (
     <Container>
-      <form>
+      <form onSubmit={enviaCadastro}>
         <br />
         <label>Cadastre-se</label>
         <br />

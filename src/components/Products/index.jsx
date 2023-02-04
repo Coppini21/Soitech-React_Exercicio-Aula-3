@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MyContext from "../../context/MyContext";
 
 import {
@@ -12,18 +12,14 @@ import {
 export default function Products(props) {
   let produtos = Object.values(props);
   let totalProdutos = produtos[0];
-  const {productDetails, setProductDetails} = useContext(MyContext)
 
+  const { addItens } = useContext(MyContext);
   const [todosProdutos, setTodosProdutos] = useState(totalProdutos);
-
+  const navigate = useNavigate();
 
   const pesquisar = todosProdutos.filter((item) =>
     item.descricao.toLowerCase().includes(props.valorInput.toLowerCase())
   );
-
-  function detailsProduct(produto){
-    setProductDetails(produto)
-  }
 
   return (
     <Container>
@@ -41,11 +37,14 @@ export default function Products(props) {
               <label>{produto.descricao}</label>
               <span>{`${produto.valor},000 ugx`}</span>
               <DivBtnAddToCartDetails>
-                <BotaoAddToCart type="button" onClick={() => props.addItens(produto)}>
+                <BotaoAddToCart type="button" onClick={() => addItens(produto)}>
                   Add to Cart
                 </BotaoAddToCart>
-                <BotaoDetails type="button" onClick={() => detailsProduct(produto)}>
-                  <Link to="/details">Details</Link>
+                <BotaoDetails
+                  type="button"
+                  onClick={() => navigate(`/details/${produto.id}`)}
+                >
+                  Details
                 </BotaoDetails>
               </DivBtnAddToCartDetails>
             </div>

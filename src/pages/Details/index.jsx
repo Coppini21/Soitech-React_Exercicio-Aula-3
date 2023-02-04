@@ -1,45 +1,68 @@
-import React from "react";
-import { useContext } from "react";
-import { Navigate } from "react-router-dom";
-import { Container, Item, DetalhesItem } from "./style";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Container, Item, DetalhesItem, BotaoAddToCart } from "./style";
 import MyContext from "../../context/MyContext";
+import config from "../../../config.json";
+import { FiCornerUpLeft } from "react-icons/fi";
+
 
 export default function Details() {
-  const { productDetails } = useContext(MyContext);
+  const { addItens } = useContext(MyContext);
+  const [produto, setProduto] = useState([]);
+  const electronics = config.Electronics;
+  const clothing = config.Clothing;
+  const totalItens = [];
 
-  if (productDetails.length === 0) {
+  electronics.forEach((item) => {
+    totalItens.push(item);
+  });
+
+  clothing.forEach((item) => {
+    totalItens.push(item);
+  });
+
+  const { id } = useParams();
+
+  const idProcurado = totalItens.find((item) => item.id === id);
+
+  const navigate = useNavigate()
+
+  function backStore(){
+    navigate("/products")
   }
+
+  useEffect(() => {
+    setProduto(idProcurado);
+  }, []);
 
   return (
     <Container id="totalCart">
-      {productDetails.length === 0 ? (
-        <Navigate to="/products" />
-      ) : (
-        <Item>
-          <div
-            className="img"
-            style={{ backgroundImage: `url(${productDetails.img})` }}
-          />
-          <DetalhesItem>
-            <h2>{productDetails.descricao}</h2>
-            <h3>
-              Cor: <span>{productDetails.cor}</span>
-            </h3>
-            <h3>
-              Material: <span>{productDetails.material}</span>
-            </h3>
-            <h3>
-              Tamanho: <span>{productDetails.tamanho}</span>
-            </h3>
-            <h3>
-              Vendedor: <span>{productDetails.vendedor}</span>
-            </h3>
-            <h3>
-              Valor: <span>{`R$${productDetails.valor},00`}</span>
-            </h3>
-          </DetalhesItem>
-        </Item>
-      )}
+      <Item>
+        <FiCornerUpLeft className="iconBack" size={30} onClick={backStore} />
+        <div
+          className="img"
+          style={{ backgroundImage: `url(${produto.img})` }}
+        />
+        <DetalhesItem>
+          <h2>{produto.descricao}</h2>
+          <h3>
+            Cor: <span>{produto.cor}</span>
+          </h3>
+          <h3>
+            Material: <span>{produto.material}</span>
+          </h3>
+          <h3>
+            Tamanho: <span>{produto.tamanho}</span>
+          </h3>
+          <h3>
+            Vendedor: <span>{produto.vendedor}</span>
+          </h3>
+          <h3>
+            Valor: <span>{`R$${produto.valor},00`}</span>
+          </h3>
+        </DetalhesItem>
+        <BotaoAddToCart onClick={() => {addItens(produto)}}>Add to Cart</BotaoAddToCart>
+      </Item>
     </Container>
   );
 }

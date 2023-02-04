@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Products from "../../components/Products";
 import Cart from "../../components/Cart";
@@ -26,6 +27,8 @@ export default function HomeProducts() {
 
   const [valorInput, setValorInput] = useState("");
 
+  const navigate = useNavigate()
+
   function abrirCart(event) {
     let cart = document.getElementById("totalCart");
     cart.style.display = "flex";
@@ -33,32 +36,9 @@ export default function HomeProducts() {
   }
 
   function sairPage() {
-    localStorage.removeItem("autorizacao");
-    window.location.reload();
-  }
+    navigate("/")
+    localStorage.clear()
 
-  function addItens(item) {
-    const existente = cart.find(
-      (produto) => produto.descricao === item.descricao
-    );
-
-    if (existente) {
-      cart.forEach((produto) => {
-        if (produto === existente) {
-          produto.quantidade = produto.quantidade + 1;
-        }
-      });
-      
-      setCart([...cart])
-      
-    } else {
-      const quantidade = {
-        ...item,
-        quantidade: 1,
-      };
-
-      setCart([...cart, quantidade]);
-    }
   }
 
   window.addEventListener("click", function (event) {
@@ -68,8 +48,7 @@ export default function HomeProducts() {
       if (openCart.style.display == "flex") {
         openCart.style.display = "none";
       }
-    } 
-
+    }
   });
 
   return (
@@ -101,14 +80,12 @@ export default function HomeProducts() {
         produtos={config.Electronics}
         name={categoriaOne}
         valorInput={valorInput}
-        addItens={addItens}
       />
 
       <Products
         produtos={config.Clothing}
         name={categoriaTwo}
         valorInput={valorInput}
-        addItens={addItens}
       />
     </Total>
   );
